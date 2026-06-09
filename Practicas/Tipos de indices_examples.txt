@@ -1,0 +1,72 @@
+Tipos de indices 
+1 ascendente
+-1 descendente
+
+default id ->cada doc presente en mongo en la coleccion mongo
+contiene un indice predeterminado llamado _id. 
+
+
+single field --> o campo unico, la indexacion se realiza en un solo
+campo y la operacion de clasificacion es ascendente o descendente. 
+Ejemplo:
+db.collection.createIndex({campo:1})
+
+db.cuentas.explain().find({campo:1}) -detalle de la consulta, incluyendo el nombre del indice y su tipo. 
+compound index--> o indice compuesto, mongo admite indices definidos 
+por el usuario en multiples campos. 
+db.collection.createIndex( {"edad": 1, "dim.h": - 1} ) 
+
+multikey index --> indice multikey, mongoDB usa el indice multikey 
+para indexar datos que estan en formato matriz.Cada elemento de la 
+matriz crea un indice separado y los datos se indexan en funcion de 
+los elementos presentes en la matriz. 
+al consultar db.multi.explain.find({campo:valor}) se describe con true o false si el campo es multikey a traves del parametron isMultikey. 
+db.multi.insert({a:[5,4,3,2,1],b:-444})
+
+geospatial index-->
+tipos 2d-plano y 2d-esférico. 
+2d-plano: los documentos deben tener una clave que contenga un array
+de dos coordenadas.
+db.resturants.insert{posicion:[23,-4]}
+entonces se puede hacer:
+db.resturants.createIndex({posicion:2d})
+
+db.restaurants.find({posicion})
+
+uso del operador near en datos de geolocalizacion 
+db.restaurants.find({posicion:{$near:[50,50]})
+
+db.plano.find({ posicion: { $geoWithin: { $polygon: [ [1,1 ], [1.5,2], [ 3 , 1 ] ] } } } )
+
+2d-esferico: para distancia sobre el globo terrestre, es necesario
+utilizar las coordenadas "2dsphere" que estan formadas por parejas
+[longitud,latitud]
+
+Longitud: distancia en grados al meridiano
+de Grenwich. Se usa la notación (- 180,+180)
+(negativos al oeste, positivos al este) .
+
+Latitud: distancia en grados al ecuador (-90
+hasta 90).
+
+ejemplo de creacion de un indice 2d-esferico: 
+db.restaurants.createIndex({gps:"2dsphere"})
+
+GeoJSON admite los siguientes tipos de geometria:
+point, LineString,Polygon,Multipoint,MultilineStringy, 
+multipolygon. 
+
+
+text index--> indice de texto mongo proporciona indexacion de texto
+para admitir consultas en formato de cadena. 
+Ejemplo:
+db.movies.createIndex({actor:"text"})
+ejemplo de busqueda,
+db.movies.find({$text:{$search:"Tom Hardy"}})
+
+hashed index--> indice hash 
+mongo utiliza un indice hash para admitir la fragmentacion. Los indices hash calculan el valor hash de los campos  de indice  utilizando una funcion hash. 
+
+Ejemplo:
+db.collection.createIndex({campo:"hashed"})
+

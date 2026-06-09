@@ -1,0 +1,111 @@
+
+
+--set de datos 
+
+db.ventas.insertMany([
+  {
+    cliente: {
+      id: 1,
+      nombre: "Juan Pérez",
+      ciudad: "Santo Domingo"
+    },
+    fecha: new Date("2025-01-10"),
+    productos: [
+      { nombre: "Laptop", categoria: "Tecnología", precio: 850, cantidad: 1 },
+      { nombre: "Mouse", categoria: "Tecnología", precio: 20, cantidad: 2 }
+    ],
+    total: 890,
+    estado: "completada",
+    metodoPago: "tarjeta"
+  },
+  {
+    cliente: {
+      id: 2,
+      nombre: "María López",
+      ciudad: "Santiago"
+    },
+    fecha: new Date("2025-01-12"),
+    productos: [
+      { nombre: "Teléfono", categoria: "Tecnología", precio: 600, cantidad: 1 }
+    ],
+    total: 600,
+    estado: "pendiente",
+    metodoPago: "efectivo"
+  },
+  {
+    cliente: {
+      id: 3,
+      nombre: "Carlos Gómez",
+      ciudad: "La Vega"
+    },
+    fecha: new Date("2025-02-01"),
+    productos: [
+      { nombre: "Televisor", categoria: "Electrodomésticos", precio: 1200, cantidad: 1 },
+      { nombre: "HDMI Cable", categoria: "Accesorios", precio: 15, cantidad: 3 }
+    ],
+    total: 1245,
+    estado: "completada",
+    metodoPago: "transferencia"
+  },
+  {
+    cliente: {
+      id: 4,
+      nombre: "Ana Martínez",
+      ciudad: "San Cristóbal"
+    },
+    fecha: new Date("2025-02-15"),
+    productos: [
+      { nombre: "Refrigerador", categoria: "Electrodomésticos", precio: 950, cantidad: 1 }
+    ],
+    total: 950,
+    estado: "cancelada",
+    metodoPago: "tarjeta"
+  },
+  {
+    cliente: {
+      id: 5,
+      nombre: "Luis Rodríguez",
+      ciudad: "San Pedro de Macorís"
+    },
+    fecha: new Date("2025-03-05"),
+    productos: [
+      { nombre: "Tablet", categoria: "Tecnología", precio: 300, cantidad: 2 },
+      { nombre: "Funda", categoria: "Accesorios", precio: 25, cantidad: 2 }
+    ],
+    total: 650,
+    estado: "completada",
+    metodoPago: "tarjeta"
+  }
+]);
+
+--creacion de indices
+
+indices simples
+db.ventas.createIndex({id:1})
+
+indices compuestos
+db.ventas.createIndex({id:1,nombre:1})
+
+eliminacion de indices 
+db.ventas.dropIndex({id:1})
+
+consulta de los indices de la collections ventas 
+db.ventas.getIndexes()
+
+
+Eliminacion de un indice compuesto 
+
+db.ventas.dropIndex({id:1,nombre:1})
+
+borrar indices por el nombre 
+
+- db.ventas.createIndex({'productos.nombre':1})
+
+nombre del indice:productos.nombre_1
+
+consulta del indice: db.ventas.getIndexes()
+
+db.ventas.dropIndex('productos.nombre_1')
+
+
+

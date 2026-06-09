@@ -1,0 +1,42 @@
+1.Indice unico(Unique index)
+
+db.usuarios.createIndex({username:1,password:1},{unique:true})
+db.usuarios.dropIndex("username_1_password_1")
+db.usuarios.createIndex({username:1},{unique:true})
+
+2. Indice parcial(Partial index)
+
+db.productos.createIndex({nombre:1},
+  {partialFilterExpression: {precio:{$lte:990}}}
+)
+consulta:
+
+db.productos.find({
+   nombre: "Consola PlayStation 4 Slim",
+   precio: {$lte:990}
+   }).explain("executionStats")
+
+resultado del explain:  stage: 'IXSCAN',
+
+3. Indices TTL(TTL index)
+son indices espaciales de un solo campo que mongoDB puede usar para 
+eliminar automaticamente documentos de una coleccion despues de cierto 
+tiempo. 
+
+db.productos.updateMany(
+    {},
+    {$set: {creado_en: new Date()}})
+
+db.productos.createIndex(
+   {creado_en: 1},
+   {expireAfterSeconds:60}
+)
+
+db.productos.getIndexes()
+
+db.productos.find({creado_en:{  $lt: ISODate("2026-04-21T00:00:00.000Z")}
+})
+
+db.productos.find({
+  creado_en:{$exists:true}
+}).limit(10)

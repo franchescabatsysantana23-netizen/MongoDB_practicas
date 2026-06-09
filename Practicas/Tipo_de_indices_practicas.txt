@@ -1,0 +1,104 @@
+--> creacion de un indice de tipo text
+
+db.ventas.createIndex({estado:'text'})
+
+--> consulta para visualizar la descripcion con explain
+
+db.ventas.find({$text:{$search:'completada'}}) -retorna todos los documentos con el estado completada. 
+db.ventas.find({$text:{$search:'completada'}}).explain("executionStats")
+
+stage: 'TEXT_MATCH' --> muestra que esta usando el indice de tipo text. 
+
+--> creacion de un indice de tipo hash index  
+
+ db.ventas.createIndex({total:'hashed'})
+
+consulta para visualizar la descripcion con explain, 
+
+db.ventas.find({total:650}).explain("executionStats")
+
+-->para verificar que la consulta usa el indice stage: 'IXSCAN'
+
+nota: MongoDB no permite índices hashed sobre campos que contienen arrays.
+Un índice hashed en MongoDB no cambia cómo escribes la consulta; lo que cambia es cómo MongoDB busca internamente. Estos índices solo sirven para igualdad (=), no para rangos ($gt, $lt, etc.).
+
+
+
+creacion de un indice de tipo geospatial index
+
+db.lugares.createIndex({ubicacion:"2d"})
+
+Nota:Estos índices son útiles cuando se usan operadores
+especiales como $near.
+db.lugares.find({ubicacion:{$near:[35,15]}}).explain("executionStats")
+
+consulta para visualizar la descripcion con explain
+
+db.lugares.find({ubicacion:{$near:[35,15]}}).explain("executionStats")
+
+
+
+
+---> creacion de un indice de tipo multikey index
+db.cursos_online.createIndex({cursos_inscriptos:1})
+
+---> consulta para visualizar la descripcion con explain
+db.cursos_online.find({$elemMatch:{cursos_inscritos:"SQL"}}).explain("executionStats") nota(revisar esto)
+
+
+
+---> creacion de un indice de tipo multikey index-lista clave -valor 
+
+db.cursos_online.getIndexes()
+db.cursos_online.dropIndex("pagos_realizados_1")
+db.cursos_online.createIndex({'pagos_realizados.curso':'text'})
+
+---> consulta para visualizar la descripcion con explain
+db.cursos_online.find({$text:{$search:"SQL"}}).explain("executionStats")
+
+creacion de un indice de tipo 2d geospatial index
+db.lugares1.createIndex({coordinates:"2dsphere"})
+
+
+consulta para visualizar la descripcion con explain
+
+db.lugares1.find({
+   coordinates: {
+          $near:{
+            $geometry:{
+            type:"Point",
+            coordinates:[-19.9447,18.4546] },
+            $maxDistance: 2000
+       }
+     }
+})
+
+--> creacion de un indice de tipo single index
+db.Titanic.createIndex({PassengerId:1})
+
+--> consulta para visualizar la descripcion con explain
+db.Titanic.find({PassengerId:20}).explain("executionStats")
+db.Titanic.find({PassengerId: {$lte:15}}).explain("executionStats")
+
+
+---> creacion de un indice de tipo compound index.
+db.Movies.createIndex({show_id:1, title:-1})
+
+
+---> consulta para visualizar la descripcion con explain
+db.Movies.find({show_id:'s19'}).sort({title:-1}).explain("executionStats")
+
+db.Movies.find({$text: {$search:'Jaguar'}}).explain("executionStats") --title no tiene un text index. 
+
+
+---> verificacion del indice por default usando explain
+db.direccion.find({_id:ObjectId('69821aed252ed5eb71628cbd')}).explain("executionStats")
+
+EXPRESS_IXSCAN: A faster, optimized version of an index scan used in very simple query patterns.
+
+
+
+ejemplos: 
+db.pedidos.createIndex({ usuarioId: 1, fecha: -1 })
+ideal para consulta como: 
+  db.pedidos.find({ usuarioId: 123 }).sort({ fecha: -1 })

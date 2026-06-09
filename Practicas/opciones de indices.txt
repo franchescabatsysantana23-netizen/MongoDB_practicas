@@ -1,0 +1,22 @@
+1. Indice único(unique index)
+
+db.collection.createIndex({nombre:1},{unique:true})
+
+
+2. Indice compuesto
+
+db.collection.createIndex({nombre:1,apellido:1},{unique:true})
+
+3.Indice parcial(Partial Index): indexa documentos de una colección en función
+de un filtro o expresión específicos. 
+db.coleccion.createIndex({nombre:1},{partialFilterExpresion:{$edad:{$gt:5}}})
+
+4.Índice TTL (TTL index)
+Los índices TTL son índices especiales de un
+solo campo que MongoDB puede usar para
+eliminar automáticamente documentos de
+una colección, después de una cierta cantidad
+de tiempo o en un horario específico.
+
+
+

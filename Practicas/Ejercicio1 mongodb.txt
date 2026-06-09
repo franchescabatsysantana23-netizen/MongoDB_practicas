@@ -1,0 +1,30 @@
+Ejercicio1 mongodb
+
+1- listar las bases de datos -show dbs.
+2- crear la base de datos instituto.  use Educationit
+3- listar las colecciones dentro de dicha bases de datos.  show dbs(sin resultado de la nueva bases de datos creada).
+4- crear las colecciones alumnos, profesores, cursos y carreras.
+db.createCollection("alumnos")
+db.createCollection("profesores")
+db.createCollection("cursos")
+db.createCollection("carreras")
+5- repetir el punto3
+show dbs(se muestran la lista de collections).
+
+6- crear la base de datos clinica.
+use clinica
+7- crear dentro de la colecciones pacientes, medicos, consultorios y turnos. 
+verificar que se hayan creado correctamente.
+db.createCollection("pacientes")
+db.createCollection("medicos")
+db.createCollection("consultorios")
+db.createCollection("turnos")
+
+
+8- crear las bases de datos gimnasio y supermercado.
+use gimnasio
+use supermercado
+
+
+9- listar las bases de datos y ver cuales se muestran. 
+show dbs( se muestran clinica y la del instituto). 
