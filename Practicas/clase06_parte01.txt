@@ -1,0 +1,19 @@
+var ecommerceDb= db.getSiblingDB('ecommerce');
+var findFilter ={marca: {$in: ['Samsung','Sony'] } }; 
+var proyeccion = {categoria:1, marca:1, nombre:1, precio:1, _id:0};
+let skip=2; excluye registros los primeros registros dependiendo del orden.
+let limit=10; limita la cantidad de registro en la consulta. 
+let sort= {categoria:-1}  menos 1 ordena de mayor a menor, 1 ordena de menor a mayor. 
+
+var cursor =ecommerceDb.productos.find(findFilter,proyeccion).skip(2).limit(limit)
+
+let ultimaCategoria= null;
+
+cursor.forEach(function (x){
+if(ultimaCategoria !== x.categoria){
+   ultimaCategoria =x.categoria
+   print(`--------------------${x.categoria}----------------`)
+
+}
+print(` ${x.categoria} ${x.marca} ${x.nombre} $${x.precio}`)
+})

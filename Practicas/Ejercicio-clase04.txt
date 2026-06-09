@@ -1,0 +1,86 @@
+Ejemplo de Busquedas
+
+
+- las primeras llaves hacen filtros, la segunda realizan una seleccion. 
+El cero me ayuda a omitir las propiedades que no me interesan.  
+
+db.productos.find({},{nombre:1, marca:1,_id:0})
+- Tambien se puede elegir las propiedades que no me interesan 
+db.productos.find({},{nombre:0, marca:0,_id:0})
+
+
+---para modificar el primero de todos los registros 
+Ejemplo
+db.productos.updateOne({},{$set: {precio: 2000, stock:44}})
+
+--- Modificacion masiva de todos los documentos de la collection productos. 
+
+db.productos.updateMany({}, {$set:{envioGratis:true}})
+
+---actualiza todos los documentos dentro de las categorias TV, Licuadoras, celulares
+db.productos.updateMany({categoria:{$in: ['TV','Licuadoras','Celulares']} },{$set:{envioGratis:false}})
+
+db.productos.updateMany({categoria:{$nin: ['TV','Licuadoras','Celulares']} },{$set:{envioGratis:false}})
+
+db.productos.find({marca:"Tecnomaster"},{_id:0}) busca un registro de TV con la marca tecnomaster, omitiendo el campo id
+
+---Ejercicio 
+
+1- Sobre la coleccion productos
+ 1.1 - insertar cuatro productos , dos de ellos con categoria asignada y los otros sin la propiedad  categoria(es decir, siquiera este definidad). 
+
+
+--Con categoria 
+db.productos.insertMany(
+[{nombre: 'Smart TV 120" 4K',marca: 'LG', categoria: 'TV', precio: 5600,stock: 100,envioGratis: true, descripcion: 'Televisor de Sala' }
+,{nombre: 'Celular Galaxy S24',marca: 'Samsung', categoria: 'Celulares', precio: 11600,stock: 10,envioGratis: false, descripcion: 'Smartphone'}
+])
+-- sin categoria 
+
+db.productos.insertMany(
+[{nombre: 'Smart TV 120" 2K',marca: 'Tecnomaster', precio: 1600,stock: 100,envioGratis: false, descripcion: 'Televisor' }
+,{nombre: 'Celular Galaxy S25',marca: 'Samsung', precio: 111600,stock: 5,envioGratis: true, descripcion: 'Smartphone'}
+])
+
+
+
+1.2 - Listar todos los productos con categoria TV
+db.productos.find({categoria:"TV"})
+
+
+1.3 - Listar todos los productos que tengan la propiedad categoria.
+
+ db.productos.find({categoria:{$exists:true}})
+
+db.productos.countDocuments({categoria:{$exists:true}}) --> cuenta todos los documentos con la propiedad categoria 
+ 
+1.4 - Listar todos los productos que no tengan la propiedad categoria.
+db.productos.find({categoria:{$exists:false}})
+
+db.productos.countDocuments({categoria:{$exists:false}})
+
+1.5 - Listar todos los celulares de la marca Samsung
+
+ db.productos.find({categoria:"Celulares", marca:/samsung/i}, {_id:0, descripcion:0, envioGratis:0})
+
+1.6 - Listar todos los celulares de la marca Samsung, mostrando solo nombre, precio y categorias( ademas del id).
+      db.productos.find({categoria:/celulares/i,marca:/samsung/i},{nombre:1,precio:1,categoria:1})
+
+
+1.7 - Listar todos los celulares de la marca Samsung, mostrando solo su nombre, precio y categoria(sin mostrar el id).
+ db.productos.find({categoria:/celulares/i,marca:/samsung/i},{nombre:1,precio:1,categoria:1,_id:0})
+
+
+1.8 - Listar todos los celulares de la marca Samsung, pero sin mostrar , en el resultado, la marca( que ya se sabia que era Samsung).
+Es decir, mostrar todas las propiedades, excepto la marca(no mencionar todas las propiedades, hacer solo mencion a la marca). 
+ 
+ 
+db.productos.find({categoria:/celulares/i,marca:/samsung/i}, {marca:0})
+
+
+
+
+
+
+
+

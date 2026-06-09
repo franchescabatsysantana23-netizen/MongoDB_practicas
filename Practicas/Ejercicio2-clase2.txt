@@ -1,0 +1,35 @@
+Ejercicio1:
+
+1- Listar las bases de datos existentes.
+ show dbs
+2- Crear la base de datos instituto.
+ use instituto
+
+3- Repetir el paso 1.
+ show dbs
+4- crear la colección alumnos.
+
+ db. createCollection('alumnos')
+
+5- repetir el paso 1.
+ show dbs
+
+6 - insertar de a uno, 5 alumnos en la colección. cada uno deberá tener nombre, apellido, fecha de nacimiento y ciudad.
+ 
+db.Alumnos.insertOne( {nombre:'franchesca', apellido:'santana',fechaNacimiento:'10101994', ciudad: 'Santo Domingo'} ) 
+ db.Alumnos.insertOne({nombre:'sofia', apellido:'marte', fechaNacimiento:'12101993', ciudad:'Distrito Nacional'})
+db.Alumnos.insertOne({nombre:'bacilisa',apellido:'liriano caraballo', fechaNacimiento:'20051961', ciudad:'Santo Domingo'})
+db.Alumnos.insertOne({nombre:'francia', apellido:'caraballo', fechaNacimiento:'01011936',ciudad:'Santo Domingo'})
+ db.Alumnos.insertOne( {nombre: 'juan', apellido:'monegro', fechaNacimiento:'13101992', ciudad:'Bonao'})
+
+7 - Realizar los pasos necesarios para crear 5 cursos, que tengan las siguientes propiedades: 
+- nombre
+- costo
+- fechaInicio
+-FechaFinalizacion 
+
+db.Alumnos.insertOne({nombre:'bacilisa',apellido:'liriano caraballo', fechaNacimiento:'20051961', ciudad:'Santo Domingo'})
+db.cursos.insertOne({nombre:'mongoDB', costo:4000, fechaInicio:'14012026', fechaFin:'02022026'})
+db.cursos.insertOne({nombre:'java',costo:5000, fechaInicio:'15022026', fechaFin:'03032026'})
+db.cursos.insertOne({nombre:'python', costo:7000, fechaInicio:'17032026', fechaFin:'18042026'})
+db.cursos.insertOne({nombre:'microsoft Azure AI', costo:8000, fechaInicio:'18032026', fechaFin:'20042026'})

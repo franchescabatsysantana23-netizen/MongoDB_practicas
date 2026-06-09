@@ -1,0 +1,93 @@
+operador crud
+
+
+--insercion de un solo registro
+
+db.articulos.insertOne(
+{ nombre: “Celular”, stock: 10 })
+
+- ejemplo de insercion de multiples registros. 
+db.articulos.insertMany([
+{ nombre: “Mouse”, stock: 10 },
+{ nombre: “Teclado”, stock: 5 }
+])
+
+
+--Actualizacion de registros
+ 
+db.usuarios.updateOne(
+{ id: { $eq: 10 } },
+{ $set: { active: false } }
+)
+--Actualizacion de varios registros 
+
+db.usuarios.updateMany(
+{ must_delete: { $eq: 1 } },
+{ $set: { active: false } }
+)
+---Reemplazar un solo documento
+
+db.usuarios.replaceOne(
+{ id: { $eq: 10 } },
+
+{ usuario: “CarlosLopez”, email: “clopez@gmail.com” }
+)
+-- Ejemplo de eliminacion
+
+db.usuarios.deleteOne(
+{ id: { $eq: 10 } }
+)
+--Ejemplo de eliminacion de varios documentos
+db.usuarios.deleteMany({ must_delete: { $eq: 1 } })
+
+
+
+-- ejemplo de alter en una collection 
+
+db.usuarios.updateMany(
+{},
+{ $currentDate: { created_at: {$type: “timestamp” } } })
+
+
+--Ejemplo de eliminacion collections
+
+db.productos.drop()
+
+- ejemplo de insercion de un unico registros
+
+db.usuarios.insertOne({
+edad: 30,
+nombre: “Carlos Lopez”,
+email: “clopez@gmail.com”,
+clave: “1234”
+})
+
+operador $inc
+
+Este operador realiza la suma del valor de un
+campo y el valor dado. Si el valor dado es
+negativo, se realiza una resta. Se pueden
+especificar varios campos con sus respectivos
+incrementos.
+Ejemplo: 
+
+db.usuarios.updateOne(
+ { id: { $eq: 10 } },
+ { $inc: { inicios_sesion: 1, dias_disponibles: -1 } }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

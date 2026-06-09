@@ -1,0 +1,97 @@
+Sobre la colección "productos"
+1- Listar todos los productos.
+
+db.productos.find()
+
+2- Listar todos los productos con envio gratis.
+
+db.productos.find({envioGratis:true})
+
+3- Listar todos los productos de marca sony.
+
+  db.productos.find({marca:/SONY/i}) ---> Busca todos los registro de la marca sony, el operador i indica que la busqueda 
+
+no sera sensible a mayusculas y minusculas. 
+
+
+4- Listar todos los productos de marca sony con envio gratis. 
+
+   db.productos.find({marca:"Sony", envioGratis: true} )
+
+   db.productos.find({$and: [ {marca:/sony/i},{envioGratis:true} ] } )
+
+5- Listar todos los productos de marca sony sin envio gratis.
+
+   db.productos.find({marca:/SONY/i, envioGratis:false})
+
+[
+  {
+    _id: ObjectId('698143e67e3d54024b628cb7'),
+    nombre: 'Smart TV 48" OLED',
+    marca: 'Sony',
+    categoria: 'TV',
+    precio: 1950,
+    stock: 4,
+    envioGratis: false,
+    descripcion: 'OLED con colores profundos'
+  }
+]
+
+6- Listar todas las TV de marca sony. 
+
+db.productos.find({$and:[{categoria:"TV"},{marca:/SONY/i} ]    })
+
+
+7- Listar todas las TV de marca sony con envio gratis.
+ 
+db.productos.find({$and: [{marca:/sony/i},{categoria:/tv/i},{envioGratis:true}]})
+
+8- Listar todos los productos con precio menor a 800.
+db.productos.find({precio: {$lt: 800} })
+
+9- Listar todos los productos con precio mayor a 500.
+db.productos.find({precio:{$gt:500} })
+
+
+10- Listar todos los productos con precio entre 500 y 800 inclusive. 
+   db.productos.find({$and: [{precio: {$gte:500}},{precio: {$lte:800}}  ]})
+
+  
+
+
+11- Listar todas las consolas con precio entre 500 y 800 inclusive. 
+db.productos.find({$and: [ { precio: {$gte:500} },{ precio: {$lte:800} },{ categoria:/consolas/i}  ]})
+
+12- Listar los celulares de Samsung. 
+   db.productos.find({marca:/Samsung/i, categoria:/celulares/i})
+
+
+
+13- Listar los televisores de sony. 
+ db.productos.find({categoria:/tv/i, marca:/sony/i})
+
+
+14- Listar los celulares de Samsung y sony. 
+   db.productos.find({marca:"Sony",marca:"Samsung", categoria:"Celulares" })
+
+
+15- Listar los celulares de Samsung y televisores de sony. 
+    db.productos.find({ categoria:"Celulares" , marca:{$in:[/samsung/i,/sony/i ] }})
+     
+16- Listar los celulares de Samsung y televisores de sony con precio entre 500 y 1200. 
+
+db.productos.find({ $or: [  {categoria:/Celulares/i, marca:/Samsung/i }, {  categoria:/tv/i, marca:/Sony/i, precio: {$gte:500}, precio: {$lte:1200} } ] })
+
+17 - Listar todos los productos con envio gratis de la marca xiaomi, Microsoft, apple y motorola. 
+
+ --revisar esta consulta 
+
+  db.produtos.find({envioGratis:true, marca: {$in: [/xiaomi/i,/microsoft/i,/apple/i,/motorola/i] }  })
+
+
+18- Listar todos los productos con envio gratis que no sean de las marcas xiaomi, Microsoft, apple y motorola. 
+---revisar esta consulta
+
+db.produtos.find({envioGratis:true, marca: {$nin: [/xiaomi/i,/microsoft/i,/apple/i,/motorola/i] }  })
+
+

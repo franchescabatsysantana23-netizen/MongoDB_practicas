@@ -1,0 +1,41 @@
+Ejercicio3- clase2
+
+1- Insertar 3 alumnos mas con un unico insertMany escrito en un unico renglon de corrido.
+db.Alumnos.insertMany(
+ [
+ { nombre: 'marta', apellido: 'Rodriguez', fechaNacimiento: new Date('10101993'), ciudad: 'Santo Domingo' }, 
+{ nombre: 'vanesa', apellido: 'liriano', fechaNacimiento: new Date('07102006'), ciudad: 'Santo Domingo' },
+ { nombre: 'Marisol', apellido: 'De los Santos', fechaNacimiento: new Date('30042000'), ciudad: 'Santo Domingo' }
+] 
+)
+
+2- Insertar 12 alumnos mas con 3 insertmany, cada uno con 4 alumnos. Estos ultimos insertMany 
+deben escribirse en varios renglones, uno para cada alumno. 
+
+
+db.Alumnos.insertMany(
+... [
+... { nombre:'Andres', apellido:'Castillo Benitez', fechaNacimiento: new Date('16081990'), ciudad:'Bonao'},
+... { nombre:'paula', apellido:'Romero Diaz', fechaNacimiento: new Date('03041982'), ciudad:'Bonao'},
+... { nombre:'Diego', apellido:'cruz alvarado', fechaNacimiento: new Date('25101998'), ciudad:'Bonao'},
+... { nombre:'Mariana', apellido:'Lopez Quintana', fechaNacimiento: new Date('07051989'), ciudad:'Bonao'}
+... ]
+... )
+
+db.Alumnos.insertMany(
+... [
+... { nombre:'Miguel', apellido:'Fernandez Rojas', fechaNacimiento: new Date('30092001'), ciudad:'Santiago'},
+... { nombre:'Sofia', apellido:'Navarro Castillo', fechaNacimiento: new Date('12061996'), ciudad:'Santiago'},
+... { nombre:'Javier', apellido:'Ortega Pineda', fechaNacimiento: new Date('27021975'), ciudad:'Santiago'},
+... { nombre:'Camila', apellido:'morales vega', fechaNacimiento: new Date('09122003'), ciudad:'Santiago'}
+    ]
+    )
+
+ db.Alumnos.insertMany(
+     [ 
+    { nombre:'Alejandro', apellido:'Ruiz Martinez', fechaNacimiento: new Date('14031987'), ciudad:'Santo Domingo'}, 
+    { nombre: 'Lucia', apellido: 'Gomez Herrera', fechaNacimiento: new Date('22111992'), ciudad: 'Santo Domingo'}, 
+    { nombre: 'Carlos', apellido: 'mendoza lopez', fechaNacimiento: new Date('05071979'), ciudad: 'Santo Domingo'}, 
+    { nombre: 'Valentina', apellido: 'Torres Salas', fechaNacimiento: new Date('18012001'), ciudad: 'Santo Domingo'}
+    ]
+... )

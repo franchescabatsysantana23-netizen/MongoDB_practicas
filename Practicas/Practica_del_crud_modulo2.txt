@@ -1,0 +1,44 @@
+--Actualizacion 
+
+db.direccion.updateOne({codigo_postal:"1440"},{$set: {codigo_postal:"1441"} } )
+
+
+db.direccion.updateMany({provincia: /buenos aires/i},{$set: {provincia:"BUENOS AIRES"} } )
+
+---Alter de la collection 
+
+db.usuarios.updateMany(
+{},
+{ $currentDate: { created_at: {$type: “timestamp” } } })
+
+db.direccion.updateMany(
+{},
+{$currentDate: {fecha: {$type: “timestamp” }}}
+)
+
+
+db.direccion.updateMany(
+{},
+{$currentDate: {fecha: {$type: 'timestamp' }}}
+)
+
+---> setea la fecha actual 
+
+db.direccion.updateMany(
+{},
+{$set: {fecha1: new Date()}}  
+)
+
+
+---> Borrar un campo en todo los documentos 
+
+db.direccion.updateMany(
+{},
+{$unset: {fecha:""}})
+
+
+---> operador replace
+db.direccion.replaceOne({numero:{$eq:4300}}, {localidad:/mataderos/i, localidad:"MATADEROS"})
+
+
+

@@ -1,0 +1,34 @@
+
+1 - Verificar que exista la base de datos "instituto" (ejercicio de clase 2) y dentro la colección "alumnos" con varios alumnos creados.
+De no ser así, crearlos.
+
+ const conexion1 = db.getSiblingDB('admin');
+ let listaDB =conexion1.runCommand({listDatabases:1})
+ console.log(listaDB)
+ 
+
+2 - Crear un archivo "ejercicio-1.js" primeramente con un console.log de prueba (puede ser un saludo, etc).
+console.log('prueba')
+
+3 - Dentro de dicho archivo, seleccionar la base de datos instituto. Confirmar la selección con un console.log
+
+let conexion = db.getSiblingDB('instituto');
+console.log(conexion)
+
+4 - Listar los alumnos que existan en la colección alumnos. Para esto utilizar while o forEach a elección.
+De cada alumno, mostrar su Object id, nombre, apellido y ciudad.
+
+let conexion = db.getSiblingDB('instituto');
+console.log(conexion)
+
+let listaC = conexion.getCollectionNames();
+console.log(listaC)
+
+
+let cursor = conexion.Alumnos.find()
+//console.log(cursor)
+
+cursor.forEach(function(valor) {
+    console.log(` id: ${valor._id}  \n nombre: ${valor.nombre} \n apellido: ${valor.apellido} \n ciudad: ${valor.ciudad}`)
+    console.log(`\n\n`)
+});
